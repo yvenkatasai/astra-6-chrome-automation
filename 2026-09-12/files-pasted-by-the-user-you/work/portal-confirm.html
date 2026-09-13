@@ -1,0 +1,685 @@
+<style>
+.master_popup span {
+    font-size: 11px !important;
+}
+.donation_amount {
+    font-size: 11px !important;
+}
+.pay_details > div {
+	border-bottom: none;
+}
+.edonat .note_fix {
+    right: -550px;
+    top: 28px;
+    width: 200%;
+}
+.table_th .table_td:nth-of-type(1), .table_tr .table_td:nth-of-type(1) {
+    width: 55px;
+}
+.capt {
+    width: 350px;
+    height: 60px;
+    border: 1px solid #ffb400;
+    background: #fefbd5;
+    border-radius: 5px;
+    display: flex;              /* make horizontal */
+    align-items: center;        /* vertical center */
+    justify-content: space-around; /* spacing */
+    padding: 10px;
+}
+.capchafix {
+    display: flex;
+    justify-content: flex-end;
+}
+#captchaInput {
+    min-height: 31px;
+    width: 100px;   /* fixed width for alignment */
+}
+
+.blue_lft10_1 {
+    border-left: 10px solid #7d99d2;
+    height: 20px;
+}
+
+.green_lft10_1 {
+    border-left: 10px solid #64DCA4;
+	height: 20px;
+}
+
+button#smp:disabled,
+button#smp[disabled], 
+button#smp.disabled {
+    pointer-events: auto !important;
+    cursor: not-allowed !important;
+}
+
+/* Apply same styling to multiple buttons */
+#cok, #smp, #qoc, #emc, #mpop, #nind, #qoc1 {
+    background-color: #a30004; /* deep red */
+    color: white;
+    border: 2px solid #7f0003;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(163, 0, 4, 0.6);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+#cok:hover, #smp:hover, #qoc:hover, #emc:hover, #mpop:hover, #nind:hover, #qoc1:hover {
+    background-color: #7f0003;
+    border-color: #5c0002;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(163, 0, 4, 0.8);
+}
+
+/* Mobile view */
+@media screen and (max-width: 767px) {
+	.table_td:nth-of-type(1):before {
+		top: 7px;
+		content: "S.No."
+	}
+
+	.table_td:nth-of-type(2):before {
+		content: "Name (As per ID Proof)"
+	}
+
+	.table_td:nth-of-type(3):before {
+		content: "Age"
+	}
+
+	.table_td:nth-of-type(4):before {
+		content: "Gender"
+	}
+
+	.table_td:nth-of-type(5):before {
+		content: "ID Proof Type"
+	}
+
+	.table_td:nth-of-type(6):before {
+		content: "ID Proof Number"
+	}
+	
+	.welcome-inner {
+        margin-bottom: 20px;
+		margin-right: 5% !important;
+    }
+	
+    .capt {
+        width: auto;          /* flexible width */
+        height: auto;         /* flexible height */
+        flex-wrap: wrap;      /* allow wrapping */
+        justify-content: center !important;
+        gap: 8px;
+    }
+	
+	.capchafix {
+        justify-content: center !important; /* center on mobile */
+    }
+	
+	.pay_details{
+        display:block !important;
+    }
+
+    .pay_details > span{
+		display: inline;
+        line-height: 30px;
+    }
+	
+	.status {
+		display: inline-grid;
+		gap: 10px;
+		padding-top: 20px !important;
+	}
+}
+
+/* Tablet view */
+@media (min-width: 768px) and (max-width: 1023px) {
+	.capchafix {
+		display: flex;
+		justify-content: center;
+	}
+	
+	.col-sm-12 {
+        width: 100%;
+        line-height: 20px;
+    }
+}
+
+/* Medium Laptop view */
+@media (width: 1024px) {
+    .table_th .table_td:nth-of-type(2), .table_tr .table_td:nth-of-type(2) {
+        width: 88px !important;
+    }
+	
+	.table_th .table_td:nth-of-type(1), .table_tr .table_td:nth-of-type(1) {
+		width: 55px !important;
+	}
+}
+</style>
+<div class="container-fluid hundi_hd clearfix">
+	<div class="container">
+		<div class="col-xs-12 col-md-8">
+			<a href="#welcome" class="welcome-inner"><def class="welcome"></def></a>
+			Pilgrim Details for TTD Break Darshan
+		</div>
+		<div class="col-xs-12 col-md-4 historyLink">
+			<a href="#/SrivaniBookingsHistory">View Transaction History</a>
+		</div>
+	</div>
+</div>
+
+
+<!--Current day note points popup-->
+<div class="modal redeemSuccessPopup ng-scope" id="generalInstructions" tabindex="0" role="dialog" style="display:none;">
+	<div class="modal-dialog ">
+		<!-- Modal content-->
+		<div class="covidg" style="width: auto; margin-left: 0px;">
+			<div class="modal-header">
+				<span class="modal-title"><center>Confirmation</center></span>
+			</div>
+			<div class="modal-body" style="padding-bottom: 0px;">
+				<p style="text:red"><b>TTD BREAK DARSHAN - CURRENT DAY - IMPORTANT INFORMATION</b></p>
+					<ol>
+						<li>The quota will be released at the designated quota release time mentioned above. Once the quota is released, the “Continue” button will be enabled.</li>
+						<li>Clicking the “Continue” button before the designated quota release time will be identified as suspicious activity, and you will not be allowed to proceed further.</li>
+						<li>A maximum of four (4) pilgrims are allowed per transaction to avail TTD Break Darshan.</li>
+						<li>An individual is permitted to book Break Darshan only once, and a seven (7) day restriction will apply from the date of their Darshan.</li>
+						<li>All bookings are final. Postponement/advancement/cancellation/ Refund are not allowed under this category.</li>
+						<li>Accommodation is not available under this category.</li>
+						<li>TTD reserves the right of cancellation of Darshan under Special Circumstances.</li>
+					</ol>
+				
+			</div>
+			<div class="clearfix" style="text-align:center;padding-bottom:12px;padding-top:12px;">
+				<p style="font-weight: bold; font-size: 15px; text-align: center; padding-bottom:10px;">Do you want to proceed?</p>
+			
+				<span>
+					<button class="btn btn-act agreeBtn"  style="padding-bottom:10px;" id="cok" ng-click="dccsc.okCovidClick();" >Yes</button>
+				</span>
+				<span>
+					<button class="btn clk text-right cancelBtn" style="padding-bottom:10px;" id="" ng-click="dccsc.Back();" >No</button>
+				</span> 				
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div> 
+<!--Current day note points popup end-->
+
+<!-- indian donor popup-->
+<div class="modal" id="NonIndianPop" role="dialog" style="display:none;">
+	<div class="modal-dialog " style="width: fit-content;">
+		<!-- Modal content-->
+	<div class="modal-content">
+			<div class="modal-header" style="text-align:center;">
+				<span class="modal-title" style="font-weight: bold;">Information :</span>
+			</div>
+		<!-- Modal content-->
+		<div class="modal-content master_popup">
+			<div class="modal-body text-center">
+				<div style="word-break: break-word;">
+					<b>To continue with your donation, please update your profile with an Indian address.</b>
+				</div>
+				<div class="col-xs-12 text-center ptop10">
+					<button class="btn btn-act" id="nind" ng-click='dccsc.closeNonIndianPop()'>
+						OK
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<!--indian donor popup end-->
+
+<!--indian Passport popup start-->
+<div class="modal" id="passportMsgPopUp" role="dialog" style="display:none">
+	<div class="modal-dialog" style="width: 500px;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="text-align:center; padding-bottom: 0px; padding-top: 5px;">
+				<span><img style="padding-bottom: 15px; width: 30px;" src="content/img/AlertIcon.png"></span>
+				<span class="modal-title" style="font-weight: bold; font-size: 25px;">Alert</span>
+			</div>
+			<div class="modal-body">
+				<div>The passport option is applicable exclusively to Non-Resident Indians and will be subject to verification at the time of availing Darshan.</div>
+				<div class="col-xs-12 text-center ptop10">
+					<button class="btn btn-act" id="mpop" style="min-width: 80px;" ng-click="dccsc.messagePopUp()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<!--indian Passport popup end-->
+
+<!--Error message popup start-->
+<div class="modal" id="ErrorMsgPopUp" role="dialog" style="display:none">
+	<div class="modal-dialog" style="width: fit-content;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="text-align:center; padding-bottom: 0px; padding-top: 5px;">
+				<span><img style="padding-bottom: 15px; width: 30px;" src="content/img/AlertIcon.png"></span>
+				<span class="modal-title" style="font-weight: bold; font-size: 25px;">Alert</span>
+			</div>
+			<div class="modal-body">
+				<div style="font-weight: bold; font-size: 16px; text-align: center;">{{dccsc.ErrorMsg}}</div>
+				<div class="col-xs-12 text-center ptop10">
+					<button class="btn btn-act" id="emc" style="min-width: 80px;" ng-click="dccsc.ErrorMsgclose()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<!--Error message popup end-->
+
+<!--Error message for 0 quota popup start-->
+<div class="modal" id="quotaPopUp" role="dialog" style="display:none">
+	<div class="modal-dialog" style="width: fit-content;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="text-align:center; padding-bottom: 0px; padding-top: 5px;">
+				<span><img style="padding-bottom: 15px; width: 30px;" src="content/img/AlertIcon.png"></span>
+				<span class="modal-title" style="font-weight: bold; font-size: 25px;">Alert</span>
+			</div>
+			<div class="modal-body">
+				<div style="font-weight: bold; font-size: 16px;" ng-if="dccsc.quotaCount === 0 && dccsc.pending !== 0">Your request could not be processed at this moment, as bookings are currently in progress.</div>
+				<div style="font-weight: bold; font-size: 16px;" ng-if="dccsc.quotaCount === 0 && dccsc.success === dccsc.quotareleased && dccsc.quotareleased>0">Your request could not be processed at this moment, as quota is already completed.</div>
+			   <div style="font-weight: bold; font-size: 16px;" ng-if="dccsc.quotareleased === 0">Your request could not be processed at this moment, as quota is not yet released.</div>
+				<div class="status" style="font-weight: bold; padding-top: 10px;">
+					<span class="pink_lft10" style=" padding-right:25px; padding-left: 5px; color: #000;">
+						Quota for the Day:
+						<span ng-bind="dccsc.quotareleased" style="color:#a3000e; font-size:20px; padding:0 0 0 5px;">0</span>
+					</span>
+					
+					<span class="green_lft10" style="padding-right:25px; padding-left: 5px; color: #000;">
+						Successfully Booked:
+						<span ng-bind="dccsc.success" style="color:#a3000e; font-size:20px; padding:0 0 0 5px;">0</span>
+					</span>
+					
+					<span class="blue_lft10" style="padding-right:25px; padding-left: 5px; color: #000;">
+						In-Payment Process:
+						<span ng-bind="dccsc.pending" style="color:#a3000e; font-size:20px; padding:0 0 0 5px;">0</span>
+					</span>
+					
+					<span class="gray_lft10" style=" padding-left: 5px; color: #000;">
+						Available tickets:
+						<span ng-bind="dccsc.quotaCount" style="color:#a3000e; font-size:20px; padding:0 0 0 5px;">0</span>
+					</span>
+				</div>
+
+				<div class="col-xs-12 text-center ptop10">
+					<button class="btn btn-act" id="qoc" style="min-width: 80px;" ng-click="dccsc.quotaclose()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<!--Error message popup end-->
+
+<!--Error message popup start-->
+<div class="modal" id="quotamisPopUp" role="dialog" style="display:none">
+	<div class="modal-dialog" style="width: fit-content;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="text-align:center; padding-bottom: 0px; padding-top: 5px;">
+				<span><img style="padding-bottom: 15px; width: 30px;" src="content/img/AlertIcon.png"></span>
+				<span class="modal-title" style="font-weight: bold; font-size: 25px;">Alert</span>
+			</div>
+			<div class="modal-body">
+				<div style="font-weight: bold; font-size: 16px;">{{dccsc.quotamismatch}}</div>
+				<div class="col-xs-12 text-center ptop10">
+					<button class="btn btn-act" id="qoc1" style="min-width: 80px;" ng-click="dccsc.quotamisclose()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<!--Error message popup end-->
+
+<div class="container">
+	<div class="col-sm-12 cnt_new edonat" dynamic-height>
+	
+		<!-- loader -->
+		<div class="loader" id='loader' style="display:none;">
+			<div class="shade"></div>
+			<div class="popup">
+
+			</div>
+		</div>
+
+			<div class="container-fluid trust_cnt">
+				
+				<div class="back_cnt col-sm-12 mpr" >
+					&#10094;&#10094; <span ng-click="dccsc.Back()" class="bk-lnk">Back</span>
+				</div>				
+				
+				<!-- <div class="col-sm-12 usrinfo_cnt clearfix user_img cnt_hide mbtm15">
+					<span class="cnt_arwlft"></span>
+					<figure>
+						<img ng-src="{{(userDetails.userImageLocation && userDetails.userImageLocation.indexOf('null')<0)?dccsc.pageDetails.userImage:'content/img/profile.png'}}" alt="user" width=70 height=70/>
+					</figure>
+					<section class="col-sm-8 mpr">
+						<div class="name pan_cnt">
+							<strong >{{dccsc.userDetails.userFirstName}} {{dccsc.userDetails.userLastName}}</strong>
+						</div>
+						<div class="clearfix personal-details">
+							<span class="phone col-md-4 col-sm-6 col-xs-12 pull-left clearfix">{{dccsc.userDetails.userPhoneMobile}}</span>
+							<span class="col-md-4 col-sm-6 col-xs-12 pull-left email clearfix">{{dccsc.userDetails.userEmail}}</span>
+							<span class="col-md-5 col-sm-12 col-xs-12 pull-left address clearfix">{{dccsc.userDetails.userAddressLine2 ? dccsc.userDetails.userAddressLine1 +', '+ dccsc.userDetails.userAddressLine2 : dccsc.userDetails.userAddressLine1}}</span>
+						</div>
+					</section>
+				</div> -->
+			
+				<div class="col-sm-12 usrinfo_cnt clearfix pay_details" style="padding:10px; font-weight:bold; display:flex; align-items:center; flex-wrap:wrap; white-space:normal; line-height: 35px;">
+					<span style="display:inline-flex; align-items:center; color: #000; font-size:14px;">
+						Quota Release Time:
+						<span ng-bind="dccsc.quotaReleaseTime" style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">0</span>
+					</span>
+
+					<span style="font-weight:bold; font-size:20px; padding:0 20px 0 20px; color: #000;">|</span>
+
+					<span style="display:inline-flex; align-items:center; color: #000; font-size:14px;">
+						System Time:
+						<span ng-bind="dccsc.serverTime" style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">0</span>
+					</span>
+
+					<span style="font-weight:bold; font-size:20px; padding:0 20px 0 20px; color: #000;">|</span>
+
+					<span style="display:inline-flex; align-items:center; color: #000; font-size:14px;">
+						Remaining Time:
+						<span ng-bind="dccsc.remainingTime" style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">0</span>
+					</span>
+					
+					<span style="font-weight:bold; font-size:20px; padding:0 20px 0 20px; color: #000;">|</span>
+
+					<!-- Flexbox line break replacing the old "|" span -->
+					<div style="flex-basis: 100%; height: 0;"></div>
+
+					<span style="font-size:14px; color: #000;">
+						Available Quota for {{dccsc.today}} (Current Day):
+					</span>
+
+					<span style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">
+						{{dccsc.pageDetails.SrivaniCurrentDayDetails.quotaCount}}
+					</span>
+
+					<span style="font-weight:bold; font-size:20px; padding:0 20px 0 20px; color: #000;">|</span>
+
+					<span style="font-size:14px; color: #000;">
+						Reporting Time:
+					</span>
+
+					<span style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">
+						{{dccsc.pageDetails.SrivaniCurrentDayDetails.slottime}}
+					</span>
+
+					<span style="font-weight:bold; font-size:20px; padding:0 20px 0 20px; color: #000;">|</span>
+
+					<span class="blue_lft10_1" style="display:inline-flex; font-size:14px; align-items:center; padding-right:25px; padding-left: 5px; color: #000;">
+						Payment Pending:
+						<span ng-bind="dccsc.pending" style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">0</span>
+					</span>
+
+					<span class="green_lft10_1" style="display:inline-flex; font-size:14px; align-items:center; padding-left: 5px; color: #000;">
+						Success:
+						<span ng-bind="dccsc.success" style="color:#a3000e; font-size:16px; padding:0 0 0 5px;">0</span>
+					</span>
+				</div>
+				
+				<div class="col-md-12 pdlft0 sed_gridtitle" id="Pilgrimd" style="padding-top: 15px;" ng-show="dccsc.pageDetails.noOfPilgrims > 0">
+					<h5>Pilgrim Details <span style="font-weight: 500;font-size: 15px;">(Only the pilgrims added here will be eligible for Darshan)</span> </h5>	
+				</div>
+				
+				<div class="table_sedGrid" ng-show="dccsc.pageDetails.noOfPilgrims > 0">
+					<div class="table_tr table_th">
+						<div class="table_td" style="width: 100%;">S.No.</div>
+						<div class="table_td">Name (As per ID Proof) <sup class="text-danger">*</sup></div>
+						<div class="table_td" style="width: 11%;">Age<sup class="text-danger">*</sup></div>
+						<div class="table_td">Gender<sup class="text-danger">*</sup></div>
+						<div class="table_td">ID Proof Type<sup class="text-danger">*</sup></div>
+						<div class="table_td">ID Proof Number<sup class="text-danger">*</sup></div>
+
+					</div>
+				</div>
+				
+				<!-- Accomponying pilgrim -->
+				<form autocomplete="off" role="form" name="userForm2" id="othersForm2"  class="table_sedGrid" style="margin-top: 0px;" ng-show="dccsc.pageDetails.noOfPilgrims > 0">
+				<div class="table_tr" ng-repeat="person in dccsc.persons track by $index">
+					<div class="table_td" ng-style="(selLanguage=='Tamil'?{'width': '76px'}:'')">{{$index+1}}</div>
+				
+					<div class="table_td">
+						<div class="form-group">
+							<input type="text"
+							class="form-control" 
+							id="fName{{$index+1}}" 
+							ng-model="dccsc.pageDetails['fName'+($index+1)]" 
+							placeholder="Enter Name" name="fName{{$index+1}}" 
+							ng-minlength="4" ng-maxlength="80" 
+							ng-pattern="/^[a-zA-Z ]*$/" 
+							ng-copy="dccsc.blockCopyPaste($event)"
+							ng-paste="dccsc.blockCopyPaste($event)"
+							required="" >
+							
+							<div class="help-block err">
+								<span class="" ng-show="piligrimformSubmit  || (userForm2.fName{{$index+1}}.$dirty && userForm2.fName{{$index+1}}.$invalid)"> 
+									<span ng-show="userForm2.fName{{$index+1}}.$error.required ">Name cannot be empty</span>
+									<span ng-show="userForm2.fName{{$index+1}}.$error.maxlength || userForm2.fName{{$index+1}}.$error.minlength || userForm2.fName{{$index+1}}.$error.pattern">Please enter valid Name</span> 
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="table_td" style="width: 11%;">
+						<div class="form-group">
+							<input type="number"
+							class="form-control"
+							ng-model="dccsc.pageDetails['age'+($index+1)]"
+							name="age{{$index+1}}"
+							min="0"
+							ng-min="12"
+							ng-max="120"
+							ng-change="dccsc.setProofTypes(dccsc.pageDetails['age'+($index+1)], $index+1)"
+							ng-pattern="/^\d*$/" 
+							ng-copy="dccsc.blockCopyPaste($event)"
+							ng-paste="dccsc.blockCopyPaste($event)"
+							placeholder="Enter Age" ng-keypress="dccsc.keyage($event)" required />
+
+							<div class="help-block err">
+								<span ng-show="piligrimformSubmit  || (userForm2.age{{$index+1}}.$dirty && userForm2.age{{$index+1}}.$invalid)"> 
+									<span  ng-show="userForm2.age{{$index+1}}.$error.required">Please enter age</span> 
+									<span class="mbtm10" ng-show="userForm2.age{{$index+1}}.$error.min || userForm2.age{{$index+1}}.$error.max || userForm2.age{{$index+1}}.$error.pattern">The valid age allowed is 12 to 120 years</span>
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="table_td">
+						<div class="form-group min_height40">
+							<select class="form-control" ng-model="dccsc.pageDetails['gender'+($index+1)]" name="gender{{$index+1}}">
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+								<option value="Transgender">Transgender</option>
+							</select>
+							<div class="help-block err">
+								<span class="ng-hide" ng-show="piligrimformSubmit  || (userForm2.gender.$dirty && userForm2.genderName.$invalid)">
+									<span ng-show="userForm2.gender{{$index+1}}.$error.required">Gender cannot be empty</span> 
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="table_td">
+						<div class="form-group min_height40">
+							<select name="proofS{{$index+1}}" class="form-control"
+							ng-model="dccsc.pageDetails['selectedProof'+($index+1)]"
+							id="['selectedProof'+($index+1)]"
+							ng-options="cnt.id as cnt.type for cnt in dccsc['proofTypes'+($index+1)]"
+							ng-change="dccsc.validationproofId($index+1);dccsc.showpassport($index+1)" ng-disabled="dccsc.pageDetails['disableIdProofSelection'+($index+1)]"  required >
+								<option class="control-label" value="">Select </option>
+							</select>
+							<div class="help-block err">
+								<span ng-show="piligrimformSubmit  || (userForm2.proofS{{$index+1}}.$dirty && userForm2.proofS{{$index+1}}.$invalid)"> 
+									<span ng-show="userForm2.proofS{{$index+1}}.$error.required">Please select ID Proof type</span> 
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="table_td">
+						<div class="form-group min_height40">
+							<span id="testing{{$index+1}}"></span>
+							<input type="text"
+								class="form-control"
+								name="proofId{{$index+1}}"
+								id="proofId{{$index+1}}"
+								ng-model="dccsc.pageDetails['photoId'+($index+1)]"
+								ng-pattern="dccsc.pageDetails['regex'+($index+1)]"
+								placeholder="Enter ID Card Number"
+								ng-copy="dccsc.blockCopyPaste($event)"
+								ng-paste="dccsc.blockCopyPaste($event)"
+								required />
+
+							<div class="help-block err">
+								<span ng-show="piligrimformSubmit  || (userForm2.proofId{{$index+1}}.$dirty && userForm2.proofId{{$index+1}}.$invalid)"> 
+									<span ng-show="userForm2.proofId{{$index+1}}.$error.required">ID Proof Number cannot be empty</span> 
+									<span ng-show="userForm2.proofId{{$index+1}}.$error.pattern">{{dccsc.pageDetails['pattern'+($index+1)]}}</span> 
+									<div  ng-show="userForm2.proofId{{$index+1}}.$error.verhoeff && !userForm2.proofId{{$index+1}}.$error.pattern && !userForm2.proofId{{$index+1}}.$error.required">Invalid Aadhaar Number</div>
+									<div ng-show="userForm2.proofId{{$index+1}}.$error.proofTypeMissing">Please select ID Proof type</div>
+								</span>
+							</div>
+
+						</div>
+					</div>
+				
+						
+				</div>
+				</form>
+				<!-- Accomponying pilgrim - end -->
+				
+				<!-- Captcha - start -->
+				<div class="col-sm-8 capchafix mtop_60" style="padding: 0px; display: grid;">
+					<div class="capt"> 
+						<input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off">
+
+						<div style="margin: 10px 0;">
+							<canvas id="captchaCanvas" width="140" height="45" style="border:1px solid #ccc; vertical-align: middle;"></canvas>
+							<img src="content/img/Refresh.png" ng-click="dccsc.generateCaptcha()" width="20px" height="20px" style="margin-left: 20px;cursor:pointer;">
+						</div>
+
+						<input type="text" id="captchaInput" placeholder="Enter Captcha" ng-copy="dccsc.blockCopyPaste($event)" ng-paste="dccsc.blockCopyPaste($event)" required>
+						
+					</div>
+					
+					<!-- <div class="col-md-13 col-sm-13 note_lst_donate mtop_60 row" style="padding: 0px; text-align: center;">
+						<p style="font-size: 16px;font-weight: bold;padding-bottom: 10px; padding-top: 10px;" class="ng-binding">Your minimum expected time to fill the details is:&nbsp;<font style="color:#a3000e; font-weight: bold; font-size: 20px;" class="ng-binding">{{dccsc.countdown}}</font>&nbsp;s</p>
+					</div> -->
+				</div> 
+				<!-- Captcha - end -->
+				
+				
+				<div class="col-md-4 col-sm-4 text-right btn_cnt_new btn_mov_new" ng-show="dccsc.pageDetails.noOfPilgrims > 0">
+					<button class="btn clk" id="edonation_reset" ng-click="dccsc.onreset()">
+						Reset
+					</button>
+					<button class="btn btn-act click1 term" id="smp" ng-click="dccsc.continueSubmit(userForm,userForm2,'NO');submitted=true;piligrimformSubmit=true;">
+						Continue
+					</button>
+				</div>
+				
+				<div class="donate_box">
+					<div class="col-md-5 col-sm-5 note_lst note_lst_donate mtop_60 row" style="width: 100%; margin-top: 40px">
+						<strong>Important Instructions:</strong>
+						<ol>
+						<li>The quota will be released at the designated quota release time mentioned above. Once the quota is released, the “Continue” button will be enabled.</li>
+						<li>Clicking the “Continue” button before the designated quota release time will be identified as suspicious activity, and you will not be allowed to proceed further.</li>
+						<li>A maximum of four (4) pilgrims are allowed per transaction to avail TTD Break Darshan.</li>
+						<li>An individual is permitted to book Break Darshan only once, and a seven (7) day restriction will apply from the date of their Darshan.</li>
+						<li>All bookings are final. Postponement/advancement/cancellation/ Refund are not allowed under this category.</li>
+						<li>Accommodation is not available under this category.</li>
+						<li>TTD reserves the right of cancellation of Darshan under Special Circumstances.</li>
+						</ol>
+					</div>
+				</div>
+				
+			</div>
+
+
+		<script>
+			if ($(window).width() > 1028) {
+				$('.trust_arw').click(function() {
+					$(".trust_arw").toggleClass("arw_left");
+					if ($('.trust').css("right") == "-339px") {
+						$(".trust_main").css('overflow', 'visible');
+						$('.trust').animate({
+							right : "22px"
+						});
+						$('.trust_cnt').animate({
+							width : "66%"
+						});
+					} else {
+						$(".trust_main").css('overflow', 'hidden');
+						$('.trust').animate({
+							right : "-339px"
+						});
+						$('.trust_cnt').animate({
+							width : "100%"
+						});
+					}
+				});
+			}
+
+			if ($(window).width() < 1030) {
+
+				$(".trust").css('right', '-287px');
+				$('.trust_arw').click(function() {
+					$(".trust_arw").toggleClass("arw_left");
+					if ($('.trust').css("right") == "-287px") {
+						$(".trust_main").css('overflow', 'visible');
+						$('.trust').animate({
+							right : "22px"
+						});
+						$('.trust_cnt').animate({
+							width : "66%"
+						});
+					} else {
+						$(".trust_main").css('overflow', 'hidden');
+						$('.trust').animate({
+							right : "-287px"
+						});
+						$('.trust_cnt').animate({
+							width : "100%"
+						});
+					}
+				});
+			}
+		</script>
+		<!--Right Panel Ends -->
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$(".nav a").attr("tabindex", "-1");
+		if (navigator.userAgent.indexOf("MSIE 10") > 0) {
+			$(".upload").bind('mousedown', function(event) {
+				$(this).trigger('click');
+			});
+		}
+		$(".log_info a").attr("tabindex", "-1");
+		$(".trust li a").attr("tabindex", "-1");
+		
+
+		$(".trust_desc").css({'height':($(".trust_names").height()+'px')});
+		
+
+
+	}); 
+</script>

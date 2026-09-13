@@ -1,0 +1,7 @@
+node_modules/
+dist/
+release/
+test-results/
+*.db
+*.db-*
+.DS_Store

@@ -1,0 +1,20 @@
+export const failures = ['TARGET_NOT_FOUND','TARGET_STALE','TARGET_DISABLED','TARGET_NOT_ACTIONABLE','OVERLAY_PRESENT','VALIDATION_INCOMPLETE','PAGE_NOT_READY','DOM_REPLACED','FOCUS_LOST','WRONG_WINDOW','WRONG_TAB','GEOMETRY_CHANGED','ACTION_DISPATCH_FAILED','NO_TRANSITION','NETWORK_NOT_OBSERVED','SERVER_REJECTED','INVENTORY_UNAVAILABLE','RATE_LIMITED','SECURITY_CHALLENGE','AMBIGUOUS_RESULT','INTERACTION_NOT_READY','CAPTCHA_EXPIRED','NETWORK_FAILED','AUTHENTICATION_REQUIRED'] as const;
+export type Failure = typeof failures[number];
+export type State = 'IDLE'|'ARMING'|'OBSERVING'|'PREDICTING'|'VALIDATING'|'READY'|'ACTIONING'|'VERIFYING'|'SUCCESS'|'FAILED'|'AMBIGUOUS'|'HUMAN_HANDOFF'|'ABORTED';
+export type Phase = 'PREPARE'|'SELECT'|'SUBMIT'|'CONFIRM';
+export interface TargetSpec {selector:string; name:string; role:string; form:string; minConfidence:number}
+export interface TargetEvidence {identity:string; confidence:number; evidence:string[]; timestamp:number; geometry:{x:number;y:number;width:number;height:number}; pageIdentity:string; strategy:string}
+export type Action = 'Click'|'Precise Click'|'Scroll'|'Type'|'Key'|'Select'|'Wait'|'Verify'|'Dismiss Popup'|'Vision Click';
+export interface Step {id:string;phase:'PREPARE'|'SELECT';action:Action;target:TargetSpec;value:string;timeout:number;verification:string;failureBehavior:'handoff'|'abort'}
+export interface Profile {id:string;name:string;mode:'rehearsal'|'live';url:string;pagePath:string;target:TargetSpec;validationSelector:string;interactionReadySelector:string;requireEnableTransition:boolean;expiredCaptchaSelector:string;submissionRequestPath:string;submissionRequestMethod:'GET'|'POST';challengeSelector:string;successSelector:string;successPath:string;failureSelector:string;inventorySelector:string;timeoutMs:number;verificationTimeoutMs:number;steps:Step[];reviewed:boolean}
+export interface Prediction {probability:number|null;windowMs:[number,number]|null;targetConfidence:number;anomalyProbability:number|null;samples:number}
+export interface TraceEvent {sequence:number;at:number;state:State;phase:Phase;kind:string;failure?:Failure}
+export interface SubmissionNetwork {requestCount:number;status?:number;durationMs?:number;failed?:boolean;retryAfterSeconds?:number;responseObserved:boolean}
+export interface NetworkObservation {kind:'start'|'response'|'error';requestId:number;status?:number;durationMs?:number;retryAfterSeconds?:number}
+export type TimingMode = 'readiness'|'timed-pair';
+export interface TimedAttempt {offsetMs:number;at:number;latenessMs:number;outcome:'clicked'|'blocked'|'cancelled'|'missed';failure?:Failure}
+export interface Execution {id:string;profileId:string;mode:'rehearsal'|'live';startedAt:string;state:State;phase:Phase;failure?:Failure;events:TraceEvent[];actions:number;timingMode?:TimingMode;timedAttempts?:TimedAttempt[];target?:TargetEvidence;prediction?:Prediction;readyAt?:number;actionAt?:number;verificationAt?:number;elapsedMs:number;resolutionMs?:number;network?:SubmissionNetwork;validationMs?:number;clockOrigin:number}
+export interface GateSnapshot {correctPage:boolean;correctTab:boolean;correctForm:boolean;correctTarget:boolean;exists:boolean;fresh:boolean;visible:boolean;enabled:boolean;ariaEnabled:boolean;pointerEvents:boolean;overlayAbsent:boolean;validationComplete:boolean;browserValid:boolean;focus:boolean;challengeAbsent:boolean;geometryValid:boolean;pageReady:boolean;interactionReady:boolean;captchaFresh:boolean}
+export interface TimeEstimate {offsetMs:number;uncertaintyMs:number;sampledAt:number;source:string}
+export interface ChaosReport {seed:number;trials:number;unexpectedOutcomes:number;successRate:number;falseActionRate:number;duplicateActionRate:number;staleTargetRate:number;ambiguousRate:number;meanMs:number|null;p50Ms:number|null;p95Ms:number|null;p99Ms:number|null;verificationMeanMs:number|null;outcomes:Record<string,number>}
+export const terminal = (state:State) => ['SUCCESS','FAILED','AMBIGUOUS','HUMAN_HANDOFF','ABORTED'].includes(state);

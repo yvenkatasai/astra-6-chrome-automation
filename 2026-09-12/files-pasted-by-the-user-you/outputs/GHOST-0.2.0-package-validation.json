@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "checked": [
+    {
+      "file": "dist/main.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/browser.js",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.html",
+      "matchesBuild": true
+    }
+  ],
+  "packagedDesktopAcceptance": "passed under macOS Electron",
+  "packagedLayerAcceptance": "passed under macOS Electron",
+  "nativeWindowsExecution": "not tested",
+  "liveTTD": "not tested"
+}

@@ -1,0 +1,20 @@
+{
+  "version": "0.2.1",
+  "checked": [
+    {
+      "file": "dist/main.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/browser.js",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.html",
+      "matchesBuild": true
+    }
+  ],
+  "nativeWindowsExecution": "not tested",
+  "liveTTD": "not tested",
+  "packagedLayerAcceptance": "13 scenarios passed under macOS Electron, including site adapter loopback POST and payment hash transition"
+}

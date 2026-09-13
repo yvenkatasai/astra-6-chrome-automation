@@ -1,0 +1,104 @@
+{
+  "chrome": [
+    {
+      "environment": "Headless Google Chrome, macOS ARM64; real DOM and loopback HTTP; not Windows native latency",
+      "seed": 314159,
+      "trials": 100,
+      "successRate": 0.29,
+      "falseActionRate": 0,
+      "duplicateActionRate": 0,
+      "unexpectedOutcomes": 0,
+      "staleTargetRate": 0,
+      "ambiguousRate": 0.14,
+      "meanMs": 0.0014705882435116697,
+      "p50Ms": 0,
+      "p95Ms": 0,
+      "p99Ms": 0,
+      "verificationMeanMs": 29.35862068960379,
+      "outcomes": {
+        "WRONG_TAB": 15,
+        "AMBIGUOUS_RESULT": 14,
+        "SUCCESS": 29,
+        "SERVER_REJECTED": 11,
+        "INVENTORY_UNAVAILABLE": 7,
+        "RATE_LIMITED": 7,
+        "SECURITY_CHALLENGE": 17
+      }
+    },
+    {
+      "environment": "Headless Google Chrome, macOS ARM64; real DOM and loopback HTTP; not Windows native latency",
+      "seed": 314159,
+      "trials": 500,
+      "successRate": 0.364,
+      "falseActionRate": 0,
+      "duplicateActionRate": 0,
+      "unexpectedOutcomes": 0,
+      "staleTargetRate": 0,
+      "ambiguousRate": 0.09,
+      "meanMs": 0.003655352481390415,
+      "p50Ms": 0,
+      "p95Ms": 0,
+      "p99Ms": 0.10000000055879354,
+      "verificationMeanMs": 32.63296703293735,
+      "outcomes": {
+        "WRONG_TAB": 56,
+        "AMBIGUOUS_RESULT": 45,
+        "SUCCESS": 182,
+        "SERVER_REJECTED": 55,
+        "INVENTORY_UNAVAILABLE": 67,
+        "RATE_LIMITED": 34,
+        "SECURITY_CHALLENGE": 61
+      }
+    },
+    {
+      "environment": "Headless Google Chrome, macOS ARM64; real DOM and loopback HTTP; not Windows native latency",
+      "seed": 314159,
+      "trials": 1000,
+      "successRate": 0.373,
+      "falseActionRate": 0,
+      "duplicateActionRate": 0,
+      "unexpectedOutcomes": 0,
+      "staleTargetRate": 0,
+      "ambiguousRate": 0.101,
+      "meanMs": 0.0034615384617772624,
+      "p50Ms": 0,
+      "p95Ms": 0,
+      "p99Ms": 0.10000000055879354,
+      "verificationMeanMs": 30.93941018766856,
+      "outcomes": {
+        "WRONG_TAB": 106,
+        "AMBIGUOUS_RESULT": 101,
+        "SUCCESS": 373,
+        "SERVER_REJECTED": 107,
+        "INVENTORY_UNAVAILABLE": 120,
+        "RATE_LIMITED": 79,
+        "SECURITY_CHALLENGE": 114
+      }
+    }
+  ],
+  "electron": {
+    "seed": 314159,
+    "trials": 100,
+    "unexpectedOutcomes": 0,
+    "successRate": 0.25,
+    "falseActionRate": 0,
+    "duplicateActionRate": 0,
+    "staleTargetRate": 0,
+    "ambiguousRate": 0.05,
+    "meanMs": 0.0032258064546171698,
+    "p50Ms": 0,
+    "p95Ms": 0,
+    "p99Ms": 0.09999999962747097,
+    "verificationMeanMs": 37.312000000029805,
+    "outcomes": {
+      "RATE_LIMITED": 14,
+      "WRONG_TAB": 12,
+      "SUCCESS": 25,
+      "INVENTORY_UNAVAILABLE": 9,
+      "SECURITY_CHALLENGE": 10,
+      "AMBIGUOUS_RESULT": 5,
+      "SERVER_REJECTED": 9,
+      "FOCUS_LOST": 16
+    }
+  }
+}

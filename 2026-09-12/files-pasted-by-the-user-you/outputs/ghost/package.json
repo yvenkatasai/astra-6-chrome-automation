@@ -1,0 +1,79 @@
+{
+  "name": "ghost-srivani-assistant",
+  "version": "0.3.1",
+  "private": true,
+  "description": "GHOST — observable, single-action booking assistant",
+  "author": "GHOST",
+  "license": "UNLICENSED",
+  "main": "dist/main.cjs",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && node scripts/build.mjs && vite build",
+    "start": "npm run build && electron .",
+    "test": "vitest run",
+    "test:browser": "node scripts/browser-test.mjs",
+    "test:desktop": "node scripts/desktop-test.mjs",
+    "chaos": "node scripts/chaos.mjs",
+    "package:win": "npm run build && electron-builder --win zip --x64",
+    "package:installer": "npm run build && electron-builder --win nsis --x64",
+    "package:portable": "npm run build && electron-builder --win portable --x64",
+    "package:release": "npm run build && electron-builder --win nsis zip --x64",
+    "test:timed": "node scripts/timed-test.mjs",
+    "test:startup": "node scripts/startup-test.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.577.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sql.js": "1.14.2",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/sql.js": "^1.4.9",
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.55.0",
+    "typescript": "^5.9.0",
+    "vite": "8.3.0",
+    "vitest": "^5.0.0"
+  },
+  "build": {
+    "appId": "local.ghost.srivani",
+    "productName": "GHOST",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ],
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "GHOST-Portable-${version}-Windows-x64.exe",
+      "requestExecutionLevel": "user",
+      "unpackDirName": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "extraFiles": [
+      {
+        "from": "scripts/windows/Start-GHOST-Diagnostics.cmd",
+        "to": "Start-GHOST-Diagnostics.cmd"
+      }
+    ]
+  }
+}

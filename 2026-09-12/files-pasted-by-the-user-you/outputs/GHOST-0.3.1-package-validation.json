@@ -1,0 +1,46 @@
+{
+  "version": "0.3.1",
+  "checked": [
+    {
+      "file": "dist/browser.js",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/main.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/main.cjs.map",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/preload.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.html",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/index.html",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/assets/index-BduQeKrH.css",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/assets/index-CPRiuyvw.js",
+      "matchesBuild": true
+    }
+  ],
+  "launcherMatches": true,
+  "nativeWindowsExecution": "not tested",
+  "packagedStartupFailureTest": "passed under macOS Electron",
+  "packagedDesktopAcceptance": "passed under macOS Electron, including restart",
+  "windowsFlushRegression": "read-only rejection modeled; writable startup and persistence passed"
+}

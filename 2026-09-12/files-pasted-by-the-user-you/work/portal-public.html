@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TTD">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="keywords" content="seva dip,donations,bookings,srinivasa,hundi
+,donation,cottage,donor,srivari,PAT,govindaraja,seva,kalyana venkateswara,sapthagiri,panchangam,prasanna venkateswara,calendars,suryanarayana,ttd,tirumala,kalyanamandapam,
+tirupathi,temple,balaji,venkateswara,darshan,special entry darshan,Thomala,Archana,Astadala Pada Padmaaradhana,Suprabhatam,Nijapada Darshanam,pilgrims,online,ttdsevaonline,
+,kalyanotsavam,prasadam,nandakam,vishnunivasam,srinivasam,madhavam,padmavathi,visesha pooja,vasanthotsavam,unjal,sahasra,deepalankara,arjitha,brahmotsavam,tiruppavada,vastralankara,abhishekam,
+lakshmi,pushpanjali,astothara,satakalasabhishekam,thomala,sahasranama,archana,ekanta,anantha,moolavarlu,kankanam,veda,asirvachanam,pushpaarchana,pushpayagam,hindu,religion,prarthana,muhurtham,pasupu,kumkuma,annaprasadam,arogyavaraprasadini,birrd,pranadana,gosamrakshana,sankara,netralaya,vidhyadana,
+vedparirakshana,sahasrabdi,bhagavad,bhagavatham,mahabharatham,accommodation,srinivasamangapuram,applayagunta,tiruchanoor,quota,diaries,publications,trusts,religious,Festivals,Govinda" />
+		<meta name="description" content="A multilingual online services system that enables pilgrims to avail any Seva, Special entry darshan, Accommodation, Hundi, Kalyana vedika, Seva Electronic DIP and Diaries/ Calendars that is pertaining to Lord Venkateswara. An e-commerce service provider authorizing card or direct payment processing for pilgrims." />
+		<meta name="robots" content="index, follow" >
+		<meta name="title" content="Tirumala Tirupati Devasthanams(Official Booking Portal)" >
+		<title ng-if="!titleName">Tirumala Tirupati Devasthanams(Official Booking Portal)</title>
+		<title ng-bind="titleName"></title>
+		<link rel="Shortcut Icon" href="favicon.ico">
+		
+		
+		<!-- include: "type": "css", "files": "dist/styles/*.css" -->
+		<link href="dist/styles/ttd.lib.min.f82daaf2.css" rel="stylesheet" type="text/css">
+		<link href="dist/styles/ttd.min.78cba1af.css" rel="stylesheet" type="text/css">
+		<!-- /include -->
+	<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ 
+    // <- add the UA-ID from your tracking code
+	ga('create', 'UA-171295278-1', 'auto');
+ga('send', 'pageview');
+                                           
+  </script>
+  <!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-K0YSRLFHMZ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-K0YSRLFHMZ');
+	</script>
+	</head>
+		<body ng-controller="BodyController as bdc" ng-class="{'hdr_pilgrim' : headerName}" fixed-header ng-cloak>
+			<!-- Google Tag Manager -->
+<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-NBD6BH" height="0" width="0" 
+			style="display:none;visibility:hidden"></iframe>
+		</noscript>
+				
+<!-- End Google Tag Manager -->
+			
+		<!--directive for header&menu -->
+		<div header-directive id='hdrDirective'></div>
+		<div admheader-directive id='adminhdrDirective' style="display: none"></div>
+		<div class="modal ng-scope" id="sessionPopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="modal-body">
+						<div class="text-center">{{$root.multiLanDataHdrFdr['SessionEnabtime']}} {{$root.rTime}} {{$root.multiLanDataHdrFdr['SessionSeconds']}}</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.closePopUp()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal" id="depositPopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<div class="modal-content master_popup">
+					<div class="modal-body text-center">
+						<div>
+							 Please deposit all the pending Challans (in Red) to resume your operations.
+						</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.messageclosePopUp()'>
+								Ok
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal ng-scope" id="dipCongoPopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="dip_close" ng-click='bdc.closeDipCongoPopup()'>X</div> 
+					<div class="modal-body" ng-hide="$root.dipSorryMes">
+						<div class="sevadip_icon"></div>
+						<div class="text-center" style="font-size: 24px; font-weight: 700;">{{multiLanguageData['DipRegDetails.congrats']}}</div>
+						<div class="text-center">{{multiLanguageData['DipRegDetails.your']}} <!-- (Form ID: {{$root.dipSevaFormId}}) -->{{multiLanguageData['DipRegDetails.preference']}} <span style="color: #a30004; display: inline-block; font-weight: 600;">{{$root.dipSevaName}}</span> {{multiLanguageData['DipRegDetails.for']}} <span style="color: #a30004; display: inline-block; font-weight: 600;">{{ $root.dipSevaDate}}</span>{{multiLanguageData['DipRegDetails.isselected']}} 
+							{{multiLanguageData['DipRegDetails.paymentphase']}}
+							<b style="font-weight: normal" ng-show="$root.dipStatus == 'Payment'">{{multiLanguageData['DipRegDetails.byclicking']}}</b>
+						</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.dipStatus == 'Payment'">
+							<button class="btn btn-act" ng-click='bdc.sevaDipPayNow()'>{{multiLanguageData['DipRegDetails.PayNow']}}</button>
+						</div>
+					</div>
+					<div class="modal-body" ng-show="$root.dipSorryMes">
+						{{$root.dipSorryMes}}
+					</div>
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		
+		<div class="modal ng-scope" id="darshanDipCongoPopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="dip_close" ng-click='bdc.closeDipCongoPopup()'>X</div> 
+					<div class="modal-body" ng-hide="$root.dipSorryMes">
+						<div class="sevadip_icon"></div>
+						<div class="text-center" style="font-size: 24px; font-weight: 700;">Congratulations!!</div>
+						<div class="text-center">You are selected in Darshan Electronic DIP to avail Darshan on <span style="color: #a30004; display: inline-block; font-weight: 600;"> {{$root.dipDarshanDate}},{{$root.dipSlotId}}</span> Please make the payment for ticket confirmation through transaction history during the payment phase
+							<b style="font-weight: normal" ng-show="$root.darshanDipStatus == 'Payment'">or by clicking on Pay Now</b>
+						</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.darshanDipStatus == 'Payment'">
+							<button class="btn btn-act" ng-click='bdc.darshanDipPayNow()'>Pay Now</button>
+						</div>
+					</div>
+					<div class="modal-body" ng-show="$root.dipSorryMes">
+						{{$root.dipSorryMes}}
+					</div>
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		
+		<div class="modal" id="dipNextDatePopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="modal-body text-center">
+						<div class="text-center" ng-show="!errMsg">
+							{{multiLanguageData['WelcomePage.enabtime']}}
+							 <div>{{$root.nextRegDate}} and {{$root.nextRegEndDate}}.</div>
+							  </div>
+						<div class="text-center" ng-show="errMsg">{{$root.errMsg }}</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.messagePopUpnext()'>{{multiLanguageData['WelcomePage.ok']}}</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal" id="donationPopup" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup_tran">
+					<div class="modal-body text-center" >
+						<div class="text-center" ng-show="$root.donationStatus.toLowerCase() == 'success'">
+							Your last Donation Transaction ID: {{$root.lastDonid}} is {{$root.donationStatus}}.
+							<div><b>Do you still want to Proceed</b></div>
+							  </div>
+						<div class="text-center" ng-show="$root.donationStatus.toLowerCase() == 'failed' || $root.donationStatus.toLowerCase() =='failure' ">Your last Donation Transaction ID: {{$root.lastDonid}} is <b>Failed</b>.If amount debited,reciept will be generated soon.<div><b>Do you still want to Proceed</b></div></div>
+						<div class="text-center" ng-show="$root.donationStatus.toLowerCase() == 'pending'">Your last Donation Transaction ID: {{$root.lastDonid}} is <b>Pending</b>.Please,try after some time.</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.donationStatus.toLowerCase() != 'pending'">
+							<button class="btn btn-act" ng-click='bdc.donmessagePopUpnext()'>Proceed</button>
+							<button class="btn btn-clk" ng-click='bdc.donmessagePopUpclose()'>Cancel</button>
+						</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.donationStatus.toLowerCase() == 'pending'">
+							<button class="btn btn-act" ng-click='bdc.donmessagePopUpclose()'>OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal" id="ehundiPopup" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup_tran">
+					<div class="modal-body text-center">
+						<div class="text-center" ng-show="$root.hundiStatus.toLowerCase() == 'success'">
+							Your last Hundi Transaction ID: {{$root.lastHunid}} is {{$root.hundiStatus}}.
+							 <div><b>Do you still want to Proceed</b></div>
+							  </div>
+						<div class="text-center" ng-show="$root.hundiStatus.toLowerCase() == 'failed' || $root.hundiStatus.toLowerCase() == 'failure'"> Your last Hundi Transaction ID: {{$root.lastHunid}} is <b>Failed</b>.If amount debited,reciept will be generated soon. <b>Do you still want to Proceed</b></div>
+						<div class="text-center" ng-show="$root.hundiStatus.toLowerCase() == 'pending'"> Your last Hundi Transaction ID: {{$root.lastHunid}} is <b>Pending</b>.Please,try after some time.</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.hundiStatus.toLowerCase() != 'pending'">
+							<button class="btn btn-act" ng-click='bdc.ehumessagePopUpnext()'>Proceed</button>
+							<button class="btn btn-clk" ng-click='bdc.ehumessagePopUpclose()'>Cancel</button>
+						</div>
+						<div class="col-xs-12 text-center ptop10" ng-show="$root.hundiStatus.toLowerCase() == 'pending'">
+							<button class="btn btn-act" ng-click='bdc.ehumessagePopUpclose()'>OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		
+	<div class="modal accCancl_popup" id="sedredirectPopup" role="dialog" style="display:none;">
+	<div class="modal-dialog login_pop">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				Special Entry Darshan
+				<button type="button" class="close" id="" ng-click="bdc.ClosePopUp()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				</button>
+
+			</div>
+			<div class="modal-body donation_paynum">
+				<p>
+				 Do you want to Cancel any upcoming bookings?
+				</p>
+				<div class="clearfix">
+					<span class="text-left pull-left">
+					<a  href="" ng-click="bdc.redirectHistory()" style="text-decoration:none;">	<button class="btn btn-act" id="" >
+							Yes
+						</button> </a></span>
+					<span class="text-left pull-right">
+					<a  href="" ng-click="bdc.redirectCalen()" style="text-decoration:none;">	<button class="btn clk text-right" id="">
+							No
+						</button> </span> </a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+	<div class="modal accCancl_popup" id="sevaredirectPopup" role="dialog" style="display:none;">
+	<div class="modal-dialog login_pop">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				{{ServiceNameHead}}
+				<button type="button" class="close" id="" ng-click="bdc.ClosePopUp()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				</button>
+
+			</div>
+			<div class="modal-body donation_paynum">
+				<p>
+				 Do you want to Cancel any upcoming bookings?
+				</p>
+				<div class="clearfix">
+					<span class="text-left pull-left">
+					<a  href="" ng-click="bdc.redirecSevatHistory()" style="text-decoration:none;">	<button class="btn btn-act" id="" >
+							Yes
+						</button> </a></span>
+					<span class="text-left pull-right">
+					<a  href="" ng-click="bdc.redirectSevaCalen()" style="text-decoration:none;">	<button class="btn clk text-right" id="">
+							No
+						</button> </span> </a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+
+<div class="modal  ng-scope " id="covidguideUSSES" role="dialog" style="display:none;left:25%;">
+	<div class="modal-dialog ">
+		<!-- Modal content-->
+		<div class="covidg">
+			<div class="modal-header">
+				<!--<button type="button" class="close" ng-click="dlbc.closeDollar()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				<!--</button>-->
+				<span class="modal-title"><center>Appeal to the Pilgrims</center></span>
+			</div>
+			<div class="modal-body donation_paynum" style="text-align:left;">
+
+			
+						
+<!-- 				<p class="" ng-repeat="note in darshantermsConditions" ng-show="note">{{note}}</p> -->
+<p style="font-weight:bold;margin-left: 7px;font-size:16px !important;line-height:24px !important;">The gruhasthas of USSES seva holders are requested to make a note on the
+following guidelines while availing Break Darshan :  </b></p>
+<ul class="" style="margin-left:-19px;list-style:none;line-height:27px;">
+<li style="text-decoration:none;">1. The Donor along with five members i.e., totally 6 [Six] members will be permitted
+for Beginning Break Darshan instead of Seva along with “SRIVANI” Trust ticket
+holders, duly verifying the Proceedings for darshan to that of original photo
+identity proof.</li>
+<li>2. Gruhasthas are requested to collect the Proceedings for Break Darshan, one day
+in advance before 05:00 PM at Arjitham Office, Tirumala to avail Break Darshan.</li>
+<li>3. USSES Seva Gruhasthas are permitted to take any [5] Members along with
+him/her with prior intimation to Arjitham Office. But the presence of Gruhastha
+[Donor] is compulsory in allowing such other members and should take
+endorsement to that effect from Arjitham Office before 05:00 PM on a day before
+the date of Break Darshan, otherwise members of the pass book will only be
+allowed on the allotted date through VQC – 1, TTD, Tirumala.</li>
+<li>4. The Gruhastha is requested to send prior intimation to the below mentioned
+office address for date confirmation & change of members if any through postal to
+“The Asst.Exe.Officer, Arjitham Office, Tirumala – 517504 / E-Mail id:
+<a href="mailto:arjithamoffice@gmail.com">arjithamoffice@gmail.com</a> for confirmation of their Break Darshan date.
+</li>
+<li>5. For any Enquiry please contact Arjitham Office landline number 08772263589.</li>
+<li>6. Gruhastha should bring original pass book, original photo id proof of all the
+members including donor for allowing them in Break Darshan.</li>
+<li>7. Gruhastha is requested to send request letter duly specifying the USSES seva No.
+& 3 [or] 4 option dates within this year [2020] to this office address or through
+mail to E-Mail id: <a href="mailto:arjithamoffice@gmail.com">arjithamoffice@gmail.com</a> for rescheduling their cancelled
+dates, since, the pilgrims are not being allowed for seva from 13.03.2020
+onwards.</li>
+<li>8. Gruhastha is requested to approach the O/o Dy.Exe.Officer [Donor Cell], TTD,
+Tirumala, for accommodation as per procedure duly showing the copies of Break
+Darshan Proceedings and pass book.</li>
+<li>9. Gruhastha is requested to collect the Bahumanam from Parapathyadhar, Sri TT,
+Tirumala as per existing procedure after Break Darshan.</li>
+
+
+			</ul>
+
+			
+					<!--<div style="display=inline-block">
+						<button class="agree" id="" ng-click="bdc.okCovidClick();" style="width=50%" >Agreed</button>
+						<button class="agree" id="" ng-click="bdc.okCovidClick();" >Cancel</button>
+				
+</div>-->
+<div class="clearfix">
+					<!--<span class="text-left pull-left">
+						<button class="btn btn-act" id="" ng-click="bdc.okCovidClick();" style="margin-left: 192px;">Agreed</button>
+					</span>
+					<span class="text-left pull-right">
+						<button class="btn clk text-right" id="" ng-click="bdc.cancelCovidClick();" style="margin-right: 251px;">Cancel</button>
+					</span> -->
+<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.okCovidClick()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>					
+				</div>
+							
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+
+
+<div class="modal  ng-scope " id="covidguideVVD" role="dialog" style="display:none;left:25%;">
+	<div class="modal-dialog ">
+		<!-- Modal content-->
+		<div class="covidg">
+			<div class="modal-header">
+				<!--<button type="button" class="close" ng-click="dlbc.closeDollar()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				<!--</button>-->
+				<span class="modal-title"><center>Appeal to the Pilgrims</center></span>
+			</div>
+			<div class="modal-body donation_paynum" style="text-align:left;">
+
+			
+						
+<!-- 				<p class="" ng-repeat="note in darshantermsConditions" ng-show="note">{{note}}</p> -->
+<p style="font-weight:bold;margin-left: 7px;font-size:16px !important;line-height:24px !important;">The gruhasthas of VVD seva holders are requested to make a note on the
+following guidelines while availing Break Darshan :  </b></p>
+<ul class="" style="margin-left:-19px;list-style:none;line-height:27px;">
+<li> 1. The Donor along with five members i.e., totally 6 [Six] members will be permitted
+for Beginning Break Darshan, for 2 consecutive days duly verifying the
+Proceedings for darshan, original pass book to that of original photo identity
+proof instead of seva.</li>
+
+<li> 2. Gruhasthas are requested to collect the Proceedings for Break Darshan, one day
+in advance before 05:00 PM at Arjitham Office, Tirumala to avail Break Darshan.</li>
+<li> 3. The Gruhastha is requested to send prior intimation to the below mentioned
+office address for date confirmation through postal to “The Asst.Exe.Officer,
+Arjitham office, Tirumala-517504 / E-Mail id: <a href="mailto:arjithamoffice@gmail.com">arjithamoffice@gmail.com</a> for
+confirmation of their Break Darshan date.</li>
+<li> 4. For any Enquiry please contact Arjitham Office landline number 08772263589.</li>
+<li>5. The Gruhastha should bring original pass book, original photo id proof of all the
+members including donor for allowing them duirng Break Darshan. Only the
+members in the VVD pass book will be allowed. Without photo identity and pass
+book they will not be permitted.
+</li>
+<li>6. The Gruhastha is requested to send request letter duly specifying the VVD seva
+no. & 3 or 4 option dates [ODD Number DATES ONLY] within this year [2020] to
+this office address or through E-Mail id: <a href="mailto:arjithamoffice@gmail.com">arjithamoffice@gmail.com</a> for
+rescheduling their cancelled dates. Since, the pilgrims are not being allowed for
+seva from 13.03.2020 onwards.</li>
+<li>7. The Gruhastha is requested to approach the O/o Dy.Exe.Officer [Donor Cell],
+TTD, Tirumala, for accommodation as per procedure duly showing the copies of
+Break Darshan Proceedings and pass book.</li>
+<li>8. The Gruhastha is requested to collect the Bahumanam from Parapathyadhar,
+Sri TT, Tirumala as per existing procedure after Break Darshan.</li>
+					</ul>
+
+
+			</ul>
+
+			
+					<!--<div style="display=inline-block">
+						<button class="agree" id="" ng-click="bdc.okCovidClick();" style="width=50%" >Agreed</button>
+						<button class="agree" id="" ng-click="bdc.okCovidClick();" >Cancel</button>
+				
+</div>-->
+<div class="clearfix">
+					<!--<span class="text-left pull-left">
+						<button class="btn btn-act" id="" ng-click="bdc.okCovidClick();" style="margin-left: 192px;">Agreed</button>
+					</span>
+					<span class="text-left pull-right">
+						<button class="btn clk text-right" id="" ng-click="bdc.cancelCovidClick();" style="margin-right: 251px;">Cancel</button>
+					</span> -->
+<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.okCovidClick()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>					
+				</div>
+							
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+
+
+<div class="modal" id="kalyanavedikaDisable" role="dialog" style="display:none;">
+	<div class="modal-dialog login_pop">
+
+		<!-- Modal content-->
+		<div class="modal-content" style="width: max-content;">
+			<div class="modal-header">
+				Kalyana Vedika
+				<button type="button" class="close" id="" ng-click="bdc.ClosePopUp()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				</button>
+
+			</div>
+			<div class="modal-body">
+				This service is temporarily unavailable.
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+		<div class="modal" id="SapthagiriDisable" role="dialog" style="display:none;">
+	<div class="modal-dialog login_pop">
+
+		<!-- Modal content-->
+		<div class="modal-content" style="width: max-content;">
+			<div class="modal-header">
+				Sapthagiri Magazine
+				<button type="button" class="close" id="" ng-click="bdc.ClosePopUp()" data-dismiss="modal">
+					<!-- <img src="content/img/icon-close.png"> -->
+				</button>
+
+			</div>
+			<div class="modal-body">
+				This service is temporarily unavailable.
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+		
+		<div class="modal" id="ErrorMessagePopUp" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="modal-body text-center">
+						<div style="word-break: break-word;">{{ErrorMessage}}</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.messagePopUp()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal" id="ErrorMessagePopUpRazor" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="modal-body text-center">
+						<div style="word-break: break-word;">{{ErrorMessage}}</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.messagePopUpRazor()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		<div class="modal" id="ErrorMessagePopUpRazorDcb" role="dialog" style="display:none">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content master_popup">
+					<div class="modal-body text-center">
+						<div style="word-break: break-word;">{{ErrorMessage}}</div>
+						<div class="col-xs-12 text-center ptop10">
+							<button class="btn btn-act" ng-click='bdc.messagePopUpRazorDcb()'>{{$root.multiLanDataHdrFdr['SessionOk']}}</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-backdrop fade in"></div>
+		</div>
+		
+		
+		<!-- container view -->
+		<div id="container" ng-view ng-controller="paymentResponseCtrl" tab-index></div>
+		<div footer-directive></div>
+		<!-- libs -->
+		
+		
+		<!-- include: "type": "js", "files": "dist/scripts/<%= pkg.name %>.lib.*.js" -->
+		<script src="dist/scripts/ttd.lib.min.c8d5c92e.js"></script>
+		<!-- /include -->
+		<!-- include: "type": "js", "files": "dist/scripts/<%= pkg.name %>.app.*.js" -->
+		<script src="dist/scripts/ttd.app.min.ef0bd0d7.js"></script>
+		<!-- /include -->
+	
+	</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "version": "0.3.0",
+  "checked": [
+    {
+      "file": "dist/browser.js",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/main.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/main.cjs.map",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/preload.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.cjs",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/rehearsal.html",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/index.html",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/assets/index-BJZOzKb_.js",
+      "matchesBuild": true
+    },
+    {
+      "file": "dist/ui/assets/index-BduQeKrH.css",
+      "matchesBuild": true
+    }
+  ],
+  "nativeWindowsExecution": "not tested",
+  "liveTTD": "not tested",
+  "packagedLayerAcceptance": "15 scenarios passed under macOS Electron, including timed cancellation, second-slot submission and mode labels"
+}

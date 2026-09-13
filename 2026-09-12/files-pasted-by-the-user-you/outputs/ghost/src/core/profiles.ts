@@ -1,0 +1,30 @@
+import {z} from 'zod';
+import type {Profile} from './types';
+const short=z.string().max(500);
+const target=z.object({selector:short.min(1),name:z.string().max(100),role:z.string().max(40),form:short.min(1),minConfidence:z.number().min(.8).max(1)});
+export const profileSchema=z.object({id:z.string().regex(/^[\w-]{1,80}$/),name:z.string().min(1).max(80),mode:z.enum(['rehearsal','live']),url:z.url().max(1000),pagePath:short.min(1),target,validationSelector:short.min(1),interactionReadySelector:short.default(''),requireEnableTransition:z.boolean().default(false),expiredCaptchaSelector:short.default(''),submissionRequestPath:short.default(''),submissionRequestMethod:z.enum(['GET','POST']).default('POST'),challengeSelector:short.min(1),successSelector:short,successPath:short,failureSelector:short.min(1),inventorySelector:short.min(1),timeoutMs:z.number().int().min(100).max(120000),verificationTimeoutMs:z.number().int().min(50).max(60000),reviewed:z.boolean(),steps:z.array(z.object({id:z.string().max(80),phase:z.enum(['PREPARE','SELECT']),action:z.enum(['Click','Precise Click','Scroll','Type','Key','Select','Wait','Verify','Dismiss Popup','Vision Click']),target,value:z.string().max(1000),timeout:z.number().int().min(50).max(60000),verification:short,failureBehavior:z.enum(['handoff','abort'])})).max(100)}).strict();
+export function validateProfile(input:unknown):Profile {
+ const p=profileSchema.parse(input);const u=new URL(p.url);
+ if(u.username||u.password||u.search||(u.hash&&!/^#\/[A-Za-z0-9_/-]*$/.test(u.hash)))throw new Error('Profile URLs must omit credentials and query strings; fragments may contain only a #/ application route.');
+ if(p.mode==='live'&&!['https://ttdevasthanams.ap.gov.in','https://tirupatibalaji.ap.gov.in'].includes(u.origin))throw new Error('Live profiles are restricted to the configured TTD booking origins over HTTPS.');
+ if(p.mode==='rehearsal'&&(u.protocol!=='http:'||u.hostname!=='127.0.0.1'))throw new Error('Rehearsal profiles must use the local simulator.');
+ if(p.submissionRequestPath&&(!p.submissionRequestPath.startsWith('/')||p.submissionRequestPath.startsWith('//')||/[?#]/.test(p.submissionRequestPath)))throw new Error('Submission endpoint must be an exact pathname, without query strings or fragments.');
+ if(p.mode==='live'&&!p.interactionReadySelector)throw new Error('Live profiles require a reviewed interaction-ready marker.');
+ if(!p.successSelector&&!p.successPath)throw new Error('Positive verification rule required.');
+ if(p.successPath&&(!/^\/[A-Za-z0-9_/-]*(?:#\/[A-Za-z0-9_/-]*)?$/.test(p.successPath)||p.successPath===p.pagePath||p.successPath===p.pagePath+u.hash))throw new Error('Success route must be a distinct pathname with an optional #/ application route.');
+ // Type steps reference runtime-only values. Typed personal information is never persisted.
+ if(p.steps.some(s=>s.action==='Type'&&s.value!==''))throw new Error('Type values are entered for each run; do not save personal data in profiles.');
+ if(p.steps.some(s=>['Click','Precise Click','Dismiss Popup','Vision Click','Key'].includes(s.action)&&!s.verification))throw new Error('Interactive preparation steps require a positive verification selector.');
+ return p;
+}
+export const rehearsalProfile=(origin:string):Profile=>({id:'rehearsal',name:'Srivani · local rehearsal',mode:'rehearsal',url:origin+'/',pagePath:'/',target:{selector:'[data-testid="continue"]',name:'Continue',role:'button',form:'#booking',minConfidence:.9},validationSelector:'[data-validation="complete"]',interactionReadySelector:'#booking[data-interaction-ready="true"]',requireEnableTransition:false,expiredCaptchaSelector:'[data-captcha-expired]',submissionRequestPath:'/result',submissionRequestMethod:'GET',challengeSelector:'[data-security-challenge]',successSelector:'[data-result="success"]',successPath:'',failureSelector:'[data-result="rejected"]',inventorySelector:'[data-result="inventory"]',timeoutMs:4000,verificationTimeoutMs:1500,steps:[],reviewed:true});
+// Public portal source inspected 2026-09-13. Live DOM review is still required.
+export const liveProfile=():Profile=>({...rehearsalProfile('http://127.0.0.1'),id:'ttd-srivani',name:'TTD Srivani · requires live review',mode:'live',url:'https://tirupatibalaji.ap.gov.in/#/edonationConfirmCurrentSrivani',pagePath:'/',target:{selector:'button#smp',name:'Continue',role:'button',form:'.cnt_new.edonat',minConfidence:.95},validationSelector:'.cnt_new.edonat:has(#othersForm2.ng-valid):has(#captchaInput:valid)',interactionReadySelector:'.cnt_new.edonat:has(#othersForm2.ng-valid):has(button#smp:not(:disabled))',requireEnableTransition:true,expiredCaptchaSelector:'',submissionRequestPath:'/dms/continue',submissionRequestMethod:'POST',successSelector:'',successPath:'/#/edonationCurrentSrivanipay',challengeSelector:'iframe[src*="captcha"],iframe[src*="challenge"],[data-security-challenge]',failureSelector:'#ErrorMsgPopUp',inventorySelector:'#quotaPopUp,#quotamisPopUp',reviewed:false,timeoutMs:60000,verificationTimeoutMs:15000});
+
+export function upgradeProfile(p:Profile):Profile {
+ // Migrate only the untouched built-in template; preserve trained/custom profiles.
+ if(p.id==='ttd-srivani'&&p.mode==='live'&&!p.reviewed&&p.url==='https://ttdevasthanams.ap.gov.in/'&&p.pagePath==='/REQUIRES_TRAINING'&&p.target.selector==='[data-ghost-unconfigured]'&&p.target.form==='[data-ghost-unconfigured]'&&p.validationSelector==='[data-ghost-unconfigured]'&&p.successSelector==='[data-ghost-unconfigured]'&&!p.submissionRequestPath){
+  p={...liveProfile(),name:p.name,steps:p.steps,timeoutMs:p.timeoutMs,verificationTimeoutMs:p.verificationTimeoutMs};
+ }
+ return {...p,requireEnableTransition:p.requireEnableTransition??false,interactionReadySelector:p.interactionReadySelector??(p.mode==='rehearsal'?'#booking[data-interaction-ready="true"]':'[data-ghost-unconfigured]'),expiredCaptchaSelector:p.expiredCaptchaSelector??(p.mode==='rehearsal'?'[data-captcha-expired]':''),submissionRequestPath:p.submissionRequestPath??(p.mode==='rehearsal'?'/result':''),submissionRequestMethod:p.submissionRequestMethod??(p.mode==='rehearsal'?'GET':'POST')};
+}

@@ -1,0 +1,13 @@
+{
+  "app": {
+    "machine": "0x8664",
+    "signed": false,
+    "sizeBytes": 246070272
+  },
+  "installer": {
+    "machine": "0x14c",
+    "signed": false,
+    "sizeBytes": 122015668
+  },
+  "packagedDesktopAcceptance": "Passed on macOS using exact Windows app.asar; Windows executable itself not executed"
+}
